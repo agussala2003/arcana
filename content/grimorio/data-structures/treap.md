@@ -3,26 +3,30 @@ title: Treap
 tags:
   - data-structures
 alias:
-  - nombre en español
-  - sigla o alias común
+  - árbol de búsqueda binaria aleatorio
+  - árbol de búsqueda aleatorizado
+  - tree heap
+  - randomized binary search tree
 ---
 ## 1. Qué es y cómo funciona
 
 ### Intuición
-Analogía cotidiana en una o dos oraciones: la idea simple detrás de la estructura.
-Qué problema hace fácil o eficiente, y por qué las alternativas obvias no alcanzan.
+Un Treap puede pensarse como un archivador de fichas de alumnos. Cada ficha tiene un **legajo** y un número de **suerte** asignado al azar. El legajo indica dónde guardarla, dejando los menores a la izquierda y los mayores, a la derecha. El número de suerte decide qué ficha queda más arriba en el archivador.
+
+De la misma forma, el Treap conserva los datos ordenados por su **clave** (los legajos), pero usa las **prioridades aleatorias** (suerte) para evitar que el archivador se convierta en una fila larga cuando los legajos llegan ordenados. Esto evita que el orden de llegada determine directamente la forma del árbol.
 
 ### Definición / propiedades
-- Invariante principal (la regla que siempre se cumple)
-- Propiedad de orden / acotamiento / restricción sobre los elementos
-- Qué garantiza y qué explícitamente NO garantiza
+
+Un **Treap** es un árbol binario donde cada nodo guarda una **clave**, un valor asociado y una **prioridad** aleatoria. Debe cumplir dos invariantes:
+
+- **Propiedad de BST (árbol binario de búsqueda):** las claves menores quedan en el subárbol izquierdo y las mayores, en el derecho.
+- **Propiedad de heap máximo:** la prioridad de cada nodo es mayor o igual que la de sus hijos.
 
 ### Representación
-![](/attachments/grimorio/data-structures/nombre-estructura.svg)
 
-Descripción de la organización interna: nodos, punteros, arreglos, niveles.
-Acá conviene mencionar sobre qué se apoya, enlazando a otras estructuras:
-puede construirse sobre [[array]] o [[linked list]], y la elección importa porque...
+Cada nodo contiene una clave, una prioridad y dos referencias: hijo izquierdo e hijo derecho. La raíz tiene la prioridad más alta; hacia abajo, las prioridades disminuyen. Al mismo tiempo, las claves menores quedan a la izquierda y las mayores, a la derecha.
+
+![Representación de un Treap](/attachments/grimorio/data-structures/treap.svg)
 
 ## 2. Operaciones y complejidad
 
