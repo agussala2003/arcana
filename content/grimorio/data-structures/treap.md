@@ -31,21 +31,28 @@ Cada nodo contiene una clave, una prioridad y dos referencias: hijo izquierdo e 
 ## 2. Operaciones y complejidad
 
 ### Operaciones principales
-- `op1(x)` qué hace
-- `op2()` qué hace
-- `op3(k)` qué hace
+Todo se apoya en dos primitivas; el resto se expresa en términos de ellas.
+
+- `split(T, x)` parte el treap en dos: uno con las claves $\le x$ y otro con las mayores
+- `merge(T1, T2)` une dos treaps, bajo la precondición de que toda clave de `T1` sea menor que toda clave de `T2`
+- `find(x)` busca una clave descendiendo por comparación, igual que en un [[binary search tree]]
+- `insert(x)` genera una prioridad aleatoria, hace `split` por `x` y dos `merge` con el nodo nuevo
+- `erase(x)` ubica el nodo y lo reemplaza por el `merge` de sus dos hijos
+- `union(T1, T2)` combina dos treaps cualesquiera, sin la precondición de `merge`
 
 ### Complejidad
-- `op1`: $O(\log n)$ promedio, $O(n)$ peor caso
-- `op2`: $O(1)$
-- Espacio: $O(n)$
+- `split`, `merge`, `find`, `insert`, `erase`: $O(\log n)$ esperado
+- `union` sobre treaps de tamaños $m \le n$: $O(m \log(n/m))$ esperado
+- `build` a partir de una lista ya ordenada: $O(n)$
+- Espacio: $O(n)$, más $O(\log n)$ esperado de pila por la recursión
 
-> **Nota:** aclarar acá si alguna complejidad es amortizada o esperada, y bajo qué supuesto.
+> **Nota:** las cotas son **esperadas**, no amortizadas ni de peor caso. El azar está en las prioridades, no en los datos: no existe una secuencia de entrada que degrade el treap, pero una tirada desafortunada puede producir un árbol de altura $O(n)$. La probabilidad es despreciable y se renueva en cada inserción.
 
 ### Detalles operativos
-- Comportamiento en estructura vacía / llena
-- Duplicados: se permiten o no, y qué pasa si se insertan
-- Costos ocultos: reallocs, rehash, recorridos, copias
+- Las claves son únicas: insertar una repetida no crea un nodo nuevo. La prioridad no desempata claves.
+- `merge` con la precondición violada rompe el orden de claves de forma silenciosa.
+- Prioridades repetidas no invalidan la estructura, pero degradan la cota si el generador tiene poco rango.
+- Costo oculto: cada nodo guarda dos punteros y dos enteros, y los nodos están dispersos en memoria.
 
 ## 3. Implementación
 
