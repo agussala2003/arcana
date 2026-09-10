@@ -103,7 +103,7 @@ print(e.op2())  # -> 3
 ### Comparaciones
 
 -   **vs Hash Table:** ofrece búsqueda, inserción y eliminación en **O(1) promedio**, pero no mantiene los elementos ordenados. Conviene cuando el orden no importa, pero usamos un Treap cuando necesitamos conservar el orden o realizar recorridos y consultas por rango.
--   **vs BST simple:** ambos mantienen los datos ordenados, pero un BST común puede quedar muy desbalanceado según el orden de inserción y degradar sus operaciones hasta **O(n)**. El Treap utiliza prioridades aleatorias para mantener una altura esperada de **O(log n)**.
+- **vs BST simple:** ambos mantienen los datos ordenados, pero un BST simple puede quedar muy desbalanceado según el orden en que se insertan los elementos, haciendo que sus operaciones empeoren hasta **O(n)**. Lo usamos cuando no es necesario garantizar un buen rendimiento ante cualquier orden de inserción, y usamos un Treap cuando necesitamos mantener una altura esperada de **O(log n)**.
 
   
 
