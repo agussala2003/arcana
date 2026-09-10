@@ -86,23 +86,48 @@ print(e.op2())  # -> 3
 ## 4. Uso y criterio
 
 ### Casos de uso
-- Problema concreto 1
-- Problema concreto 2
+
+-   **Conjuntos dinámicos ordenados:** permite mantener elementos ordenados mientras se realizan inserciones, búsquedas y eliminaciones de forma eficiente, con costo esperado **O(log n)**.
+-   **Consultas sobre rangos:**  permite localizar los límites de un intervalo y recorrer los elementos comprendidos entre ellos de manera eficiente.
+- **División y combinación de conjuntos ordenados:** permite separar eficientemente un conjunto según una clave o unir dos conjuntos compatibles gracias a las operaciones `split` y `merge`, facilitando la manipulación de subconjuntos completos sin procesar cada elemento individualmente.
+
 
 ### Cuándo NO usarlo
-- Escenario donde parece adecuada pero es contraproducente, y por qué
+
+-   **Cuando no importa mantener los datos ordenados:** si solo se necesita buscar elementos por clave, el orden del Treap no aporta ningún beneficio.
+-   **Cuando los datos casi no cambian:** la complejidad y sobrecarga de mantener un árbol con prioridades y punteros no se justifica. 
+-   **Cuando se necesita garantizar un rendimiento O(log n) en el peor caso:** el Treap ofrece esta complejidad solo en promedio. Una combinación poco favorable de prioridades puede hacer que el árbol quede muy desbalanceado, empeorando su rendimiento hasta **O(n)**.
+
+  
 
 ### Comparaciones
-Comparación explícita contra al menos una alternativa: [[hash table]] frente a
-esta estructura, cuándo elegir cada una y con qué criterio.
+
+-   **vs Hash Table:** ofrece búsqueda, inserción y eliminación en **O(1) promedio**, pero no mantiene los elementos ordenados. Conviene cuando el orden no importa, pero usamos un Treap cuando necesitamos conservar el orden o realizar recorridos y consultas por rango.
+-   **vs BST simple:** ambos mantienen los datos ordenados, pero un BST común puede quedar muy desbalanceado según el orden de inserción y degradar sus operaciones hasta **O(n)**. El Treap utiliza prioridades aleatorias para mantener una altura esperada de **O(log n)**.
+
+  
 
 ### Ventajas / desventajas
-- **Ventaja:** ...
-- **Desventaja:** ...
+
+  **Ventajas:**
+   -   Mantiene los datos ordenados mientras permite inserciones, búsquedas y eliminaciones eficientes.
+-   Implementación relativamente simple frente a otros árboles balanceados.
+-   Soporta `split` y `merge` eficientemente, facilitando operaciones sobre conjuntos completos.
+-   No depende del orden de inserción para obtener un buen rendimiento esperado. 
+
+**Desventajas:** 
+-   No garantiza O(log n) en el peor caso.
+-   Puede quedar desbalanceado en casos poco probables.
+-   Consume más memoria que estructuras simples.
+-   Depende de una buena generación de prioridades aleatorias para mantener su rendimiento esperado.
+  
 
 ### Señales de reconocimiento
-- Pista en el enunciado que indica que esta estructura es la adecuada
-- Otra pista
+
+-    _“El sistema debe registrar nuevos elementos y eliminar existentes constantemente, manteniéndolos siempre ordenados.”_
+-   _“Los datos pueden llegar en cualquier orden, y se requiere realizar búsquedas de forma eficiente.”_
+-   _“El sistema debe consultar frecuentemente los elementos comprendidos entre dos valores determinados.”_
+-   _“Se requiere dividir un conjunto de elementos según una clave y posteriormente combinar conjuntos ya ordenados.”_
 
 ## 5. Relaciones y extensiones
 
