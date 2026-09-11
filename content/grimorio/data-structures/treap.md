@@ -149,5 +149,6 @@ print(e.op2())  # -> 3
 
 ## 6. Referencias y recursos
 - [[COR2011]] - Chapter X.Y Título del capítulo
+- [Treap (árbol cartesiano)](https://cp-algorithms.com/data_structures/treap.html)
 - [Título del recurso](https://ejemplo.com)
 - Visualización interactiva: [nombre](https://ejemplo.com)
