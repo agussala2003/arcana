@@ -57,30 +57,103 @@ Todo se apoya en dos primitivas; el resto se expresa en términos de ellas.
 ## 3. Implementación
 
 ### Idea de implementación
-Estrategia típica y algoritmos clave, en prosa. Los pasos principales de la
-operación más interesante (la que define la estructura).
+La implementación mantiene una raíz y nodos enlazados con sus hijos. `split` recorre por clave y devuelve dos raíces; `merge` elige como raíz al nodo con mayor prioridad y conserva recursivamente el resto. Con esas operaciones, `insert` separa alrededor de la clave y coloca el nodo nuevo entre ambos árboles, mientras `erase` une los hijos del nodo eliminado.
+
+Las operaciones son recursivas porque cada llamada resuelve el mismo problema en un subárbol más pequeño. La prioridad se genera al crear el nodo; por eso el orden de inserción no determina por sí solo la forma final del árbol.
 
 ### Invariantes
-- Qué debe garantizar el código después de cada operación
-- Condiciones sobre punteros / tamaños / orden
+- Para cada nodo, todas las claves del hijo izquierdo son menores y todas las del hijo derecho son mayores.
+- La prioridad de un nodo es mayor o igual que la prioridad de cualquiera de sus hijos.
+- Un nodo tiene como máximo un hijo izquierdo y un hijo derecho; un subárbol vacío se representa con `None`.
+- Las operaciones públicas actualizan la raíz con el resultado de la operación recursiva.
+- Las claves son únicas: insertar una clave existente no modifica el árbol.
 
 ### Ejemplo de código
 
 ```python
-class NombreEstructura:
-    def __init__(self):
-        ...
+from random import randrange
 
-    def op1(self, x):
-        ...
+class Nodo:
+  def __init__(self, clave):
+    self.clave = clave
+    self.prioridad = randrange(1_000_000)
+    self.izq = self.der = None
+
+
+class Treap:
+  def __init__(self):
+    self.raiz = None
+
+  def split(self, nodo, clave):
+    if nodo is None:
+      return None, None
+    if nodo.clave <= clave:
+      nodo.der, mayor = self.split(nodo.der, clave)
+      return nodo, mayor
+    menor, nodo.izq = self.split(nodo.izq, clave)
+    return menor, nodo
+
+  def merge(self, menor, mayor):
+    if menor is None:
+      return mayor
+    if mayor is None:
+      return menor
+    if menor.prioridad >= mayor.prioridad:
+      menor.der = self.merge(menor.der, mayor)
+      return menor
+    mayor.izq = self.merge(menor, mayor.izq)
+    return mayor
+
+  def find(self, clave):
+    nodo = self.raiz
+    while nodo is not None and nodo.clave != clave:
+      nodo = nodo.izq if clave < nodo.clave else nodo.der
+    return nodo is not None
+
+  def insert(self, clave):
+    if self.find(clave):
+      return
+    nuevo = Nodo(clave)
+    menor, mayor = self.split(self.raiz, clave)
+    self.raiz = self.merge(self.merge(menor, nuevo), mayor)
+
+  def _erase(self, nodo, clave):
+    if nodo is None:
+      return
+    if nodo.clave == clave:
+      reemplazo = self.merge(nodo.izq, nodo.der)
+      return reemplazo
+    if clave < nodo.clave:
+      nodo.izq = self._erase(nodo.izq, clave)
+    else:
+      nodo.der = self._erase(nodo.der, clave)
+    return nodo
+
+  def erase(self, clave):
+    self.raiz = self._erase(self.raiz, clave)
+
+  def inorder(self, nodo=None):
+    if nodo is None:
+      nodo = self.raiz
+    yield from self._inorder(nodo)
+
+  def _inorder(self, nodo):
+    if nodo is not None:
+      yield from self._inorder(nodo.izq)
+      yield nodo.clave
+      yield from self._inorder(nodo.der)
 ```
 
 Uso típico con entrada y salida esperada:
 
 ```python
-e = NombreEstructura()
-e.op1(3)
-print(e.op2())  # -> 3
+t = Treap()
+for clave in [8, 3, 10, 1, 6]:
+  t.insert(clave)
+t.erase(3)
+
+print(t.find(6))          # True
+print(list(t.inorder())) # [1, 6, 8, 10]
 ```
 
 ## 4. Uso y criterio
@@ -95,7 +168,7 @@ print(e.op2())  # -> 3
 ### Cuándo NO usarlo
 
 -   **Cuando no importa mantener los datos ordenados:** si solo se necesita buscar elementos por clave, el orden del Treap no aporta ningún beneficio.
--   **Cuando los datos casi no cambian:** la complejidad y sobrecarga de mantener un árbol con prioridades y punteros no se justifica. 
+-   **Cuando los datos casi no cambian:** la complejidad y sobrecarga de mantener un árbol con prioridades y punteros no se justifica.
 -   **Cuando se necesita garantizar un rendimiento O(log n) en el peor caso:** el Treap ofrece esta complejidad solo en promedio. Una combinación poco favorable de prioridades puede hacer que el árbol quede muy desbalanceado, empeorando su rendimiento hasta **O(n)**.
 
   
@@ -113,9 +186,9 @@ print(e.op2())  # -> 3
    -   Mantiene los datos ordenados mientras permite inserciones, búsquedas y eliminaciones eficientes.
 -   Implementación relativamente simple frente a otros árboles balanceados.
 -   Soporta `split` y `merge` eficientemente, facilitando operaciones sobre conjuntos completos.
--   No depende del orden de inserción para obtener un buen rendimiento esperado. 
+-   No depende del orden de inserción para obtener un buen rendimiento esperado.
 
-**Desventajas:** 
+**Desventajas:**
 -   No garantiza O(log n) en el peor caso.
 -   Puede quedar desbalanceado en casos poco probables.
 -   Consume más memoria que estructuras simples.
