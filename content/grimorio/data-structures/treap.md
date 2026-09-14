@@ -205,23 +205,27 @@ print(list(t.inorder())) # [1, 6, 8, 10]
 ## 5. Relaciones y extensiones
 
 ### Variantes
-- Variante 1 y qué mejora
-- Variante 2 y qué mejora
+- **Treap balanceado por tamaño (*weight-balanced*)**: en vez de usar prioridades puramente aleatorias, se pueden derivar de una función que priorice según el tamaño del subárbol, útil cuando se necesita un balance más predecible que el probabilístico puro.
+- **Treap acotado / con capacidad fija**: variantes que limitan la profundidad o el tamaño máximo, usadas cuando se requieren garantías de memoria constante (por ejemplo, en sistemas embebidos o caches).
+- **Treap indexado (*order-statistics treap*):** se agrega a cada nodo el tamaño de su subárbol, lo que permite responder en **O(log n)** preguntas como "¿cuál es el k-ésimo elemento?" o "¿cuántos elementos son menores que x?".
+- **Treap con hashing determinístico (*zip trees*)**: en lugar de generar la prioridad con un generador aleatorio explícito, se deriva mediante una función hash de la clave obteniendo una variante moderna que simplifica aún más el Treap clásico.
 
 ### Relación con otras estructuras
-- Cómo se combina o de qué depende conceptualmente
-- Enlazar acá también: [[deque]], [[set]]
+- **BST (Árbol Binario de Búsqueda)** y **Heap**: el Treap es, en esencia, un BST al que se le agrega una segunda restricción (la del heap) para resolver su problema estructural más grave: el desbalance en el peor caso.
+- **Árboles balanceados deterministas (AVL, *Red-Black Tree*)**: resuelven el mismo problema que el Treap (evitar degeneración a **O(n)**) pero mediante reglas de rebalanceo estrictas y deterministas, en lugar de aleatoriedad. El Treap logra una complejidad esperada equivalente con una implementación considerablemente más simple, a costa de perder la garantía de peor caso estricta.
+
 
 ### Notas avanzadas
 
-#### Persistencia
-...
+#### Caching y localidad
+Al no tener rotaciones deterministas rígidas como el **AVL**, el patrón de acceso a memoria de un Treap puede ser menos predecible; en aplicaciones sensibles al rendimiento de caché de CPU, esto es una consideración a tener en cuenta frente a estructuras más "compactas" como ***B-Trees***.
 
 #### Concurrencia
-...
+Las operaciones de `split` y `merge` son especialmente amigables para el paralelismo, ya que dividen el problema en subárboles independientes. Existen versiones de Treaps concurrentes que aprovechan esta propiedad para permitir accesos simultáneos con baja contención, algo mucho más difícil de lograr en **AVL** o ***Red-Black Trees*** debido a sus reglas de rebalanceo rígidas.
 
 ## 6. Referencias y recursos
 - [[COR2011]] - Chapter X.Y Título del capítulo
 - [Treap (árbol cartesiano)](https://cp-algorithms.com/data_structures/treap.html)
 - [Título del recurso](https://ejemplo.com)
+- [Treaps](https://aprende.olimpiada-informatica.org/algoritmia-treaps)
 - Visualización interactiva: [nombre](https://ejemplo.com)
