@@ -287,6 +287,7 @@ Su inmutabilidad los convierte en claves ideales para la [[hash table]]: el hash
 
 ## 6. Referencias y recursos
 
+- [[SED2011]] - Cap. 5: Strings.
 - [FreeCodeCamp - Strings](https://www.freecodecamp.org)
 - [Harper College - Data Structures](http://www.harpercollege.edu/bus-ss/cis/166/mmckenzi/contents.htm)
 - [Better String Library](http://bstring.sourceforge.net)

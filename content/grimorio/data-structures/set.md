@@ -290,6 +290,8 @@ def visitar(url):
 
 ## 6. Referencias y recursos
 
+- [[COR2011]] - Cap. 11: Hash Tables _(los conjuntos dinámicos y su implementación mediante hashing)_.
+- [[SED2011]] - Cap. 3.5: Applications _(Set como aplicación directa de symbol tables)_.
 - [El Libro de Python - Sets](https://ellibrodepython.com/sets-python#crear-set-python)
 - [CodeGym ES - Conjunto Java](https://codegym.cc/es/groups/posts/es.829.conjunto-java)
 - [Wikipedia - Conjunto (programación)](https://es.wikipedia.org/wiki/Conjunto_(programaci%C3%B3n))

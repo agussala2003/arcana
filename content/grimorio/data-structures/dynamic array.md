@@ -207,6 +207,7 @@ Es la base de `ArrayList` (Java), `vector` (C++) y `list` (Python), construida s
 
 ## 6. Referencias y recursos
 
+- [[COR2011]] - Cap. 17.4: Dynamic Tables _(doblado de tabla y el análisis amortizado que justifica el $O(1)$ amortizado de `append`)_.
 - [**Complejidad computacional de problemas y el análisis y diseño de algoritmos**](https://gc.scalahed.com/recursos/files/r161r/w25152w/Semana1/recursos/elisa.pdf). Elisa Schaeffer, 2008.
 - **Documentación sobre operaciones de ArrayList en Java**: [Java ArrayList](https://www.w3schools.com/java/java_arraylist.asp)
 - **[Wikipedia](https://es.wikipedia.org/wiki/Array_din%C3%A1mico)**
