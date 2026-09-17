@@ -171,7 +171,9 @@ print(list(t.inorder())) # [1, 6, 8, 10]
 - Los datos casi no cambian: el overhead de prioriica.
 - Se necesita garantizar $O(\log n)$ en el **peor speranza.
 
-### Comparaciones                                                                                                                  - **vs [[hash table]]**: ofrece $O(1)$ promedio peo necesitás conservar el orden o hacer consultas porrango.- **vs [[binary search tree]] simple**: un BST pue orden de inserción; el Treap evita esa degradacióngracias a las prioridades aleatorias, aunque sin g
+### Comparaciones
+- **vs [[hash table]]**: ofrece $O(1)$ promedio pero sin orden. Usá Treap cuando necesitás conservar el orden o hacer consultas por rango.
+- **vs [[binary search tree]] simple**: un BST puede degradar a $O(n)$ según el orden de inserción; el Treap evita esa degradación gracias a las prioridades aleatorias, aunque sin garantizarlo en el peor caso.
 
 ### Ventajas / desventajas
 
