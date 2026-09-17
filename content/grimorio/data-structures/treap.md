@@ -160,47 +160,31 @@ print(list(t.inorder())) # [1, 6, 8, 10]
 
 ### Casos de uso
 
--   **Conjuntos dinámicos ordenados:** permite mantener elementos ordenados mientras se realizan inserciones, búsquedas y eliminaciones de forma eficiente, con costo esperado **O(log n)**.
--   **Consultas sobre rangos:**  permite localizar los límites de un intervalo y recorrer los elementos comprendidos entre ellos de manera eficiente.
-- **División y combinación de conjuntos ordenados:** permite separar eficientemente un conjunto según una clave o unir dos conjuntos compatibles gracias a las operaciones `split` y `merge`, facilitando la manipulación de subconjuntos completos sin procesar cada elemento individualmente.
-
+- **Conjuntos dinámicos ordenados**: inserciones, búsquedas y eliminaciones eficientes manteniendo el orden, con costo esperado $O(\log n)$.
+- **Consultas por rango**: localizar y recorrer los elementos comprendidos entre dos claves.
+- **Partir/combinar conjuntos ordenados**: `split` y `merge` permiten operar sobre subconjuntos completos sin procesar elemento por elemento.
 
 ### Cuándo NO usarlo
 
--   **Cuando no importa mantener los datos ordenados:** si solo se necesita buscar elementos por clave, el orden del Treap no aporta ningún beneficio.
--   **Cuando los datos casi no cambian:** la complejidad y sobrecarga de mantener un árbol con prioridades y punteros no se justifica.
--   **Cuando se necesita garantizar un rendimiento O(log n) en el peor caso:** el Treap ofrece esta complejidad solo en promedio. Una combinación poco favorable de prioridades puede hacer que el árbol quede muy desbalanceado, empeorando su rendimiento hasta **O(n)**.
+- No importa el orden de los datos: buscar solo poreap.
+- No importa el orden de los datos: buscar solo poreap.
+- Los datos casi no cambian: el overhead de prioriica.
+- Se necesita garantizar $O(\log n)$ en el **peor speranza.
 
-  
-
-### Comparaciones
-
--   **vs Hash Table:** ofrece búsqueda, inserción y eliminación en **O(1) promedio**, pero no mantiene los elementos ordenados. Conviene cuando el orden no importa, pero usamos un Treap cuando necesitamos conservar el orden o realizar recorridos y consultas por rango.
-- **vs BST simple:** ambos mantienen los datos ordenados, pero un BST simple puede quedar muy desbalanceado según el orden en que se insertan los elementos, haciendo que sus operaciones empeoren hasta **O(n)**. Lo usamos cuando no es necesario garantizar un buen rendimiento ante cualquier orden de inserción, y usamos un Treap cuando necesitamos mantener una altura esperada de **O(log n)**.
-
-  
+### Comparaciones                                                                                                                  - **vs [[hash table]]**: ofrece $O(1)$ promedio peo necesitás conservar el orden o hacer consultas porrango.- **vs [[binary search tree]] simple**: un BST pue orden de inserción; el Treap evita esa degradacióngracias a las prioridades aleatorias, aunque sin g
 
 ### Ventajas / desventajas
 
-  **Ventajas:**
-   -   Mantiene los datos ordenados mientras permite inserciones, búsquedas y eliminaciones eficientes.
--   Implementación relativamente simple frente a otros árboles balanceados.
--   Soporta `split` y `merge` eficientemente, facilitando operaciones sobre conjuntos completos.
--   No depende del orden de inserción para obtener un buen rendimiento esperado.
+**Ventajas:** mantiene el orden con operaciones efle frente a AVL/Red-Black, `split`/`merge`
+naturales, no depende del orden de inserción.
 
-**Desventajas:**
--   No garantiza O(log n) en el peor caso.
--   Puede quedar desbalanceado en casos poco probables.
--   Consume más memoria que estructuras simples.
--   Depende de una buena generación de prioridades aleatorias para mantener su rendimiento esperado.
-  
+**Desventajas:** sin garantía de peor caso, puede probables, más memoria que estructuras simples,depende de un buen generador de prioridades.
 
 ### Señales de reconocimiento
 
--    _“El sistema debe registrar nuevos elementos y eliminar existentes constantemente, manteniéndolos siempre ordenados.”_
--   _“Los datos pueden llegar en cualquier orden, y se requiere realizar búsquedas de forma eficiente.”_
--   _“El sistema debe consultar frecuentemente los elementos comprendidos entre dos valores determinados.”_
--   _“Se requiere dividir un conjunto de elementos según una clave y posteriormente combinar conjuntos ya ordenados.”_
+- _"Necesito insertar y eliminar manteniendo todo
+- _"Los datos pueden llegar en cualquier orden, in
+- _"Necesito consultar rangos, o dividir/unir conj
 
 ## 5. Relaciones y extensiones
 
