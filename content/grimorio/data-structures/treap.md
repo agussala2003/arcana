@@ -165,28 +165,23 @@ print(list(t.inorder())) # [1, 6, 8, 10]
 - **Partir/combinar conjuntos ordenados**: `split` y `merge` permiten operar sobre subconjuntos completos sin procesar elemento por elemento.
 
 ### Cuándo NO usarlo
-
-- No importa el orden de los datos: buscar solo poreap.
-- No importa el orden de los datos: buscar solo poreap.
-- Los datos casi no cambian: el overhead de prioriica.
-- Se necesita garantizar $O(\log n)$ en el **peor speranza.
+- No importa el orden de los datos y nunca hay borrados: un array ordenado alcanza y es más simple.
+- Los datos casi no cambian: el overhead de mantener prioridades y punteros no se justifica.
+- Se necesita garantizar $O(\log n)$ en el **peor caso**, no en esperanza (por ejemplo, en sistemas de tiempo real).
 
 ### Comparaciones
 - **vs [[hash table]]**: ofrece $O(1)$ promedio pero sin orden. Usá Treap cuando necesitás conservar el orden o hacer consultas por rango.
 - **vs [[binary search tree]] simple**: un BST puede degradar a $O(n)$ según el orden de inserción; el Treap evita esa degradación gracias a las prioridades aleatorias, aunque sin garantizarlo en el peor caso.
 
 ### Ventajas / desventajas
+**Ventajas:** mantiene el orden con operaciones eficientes, `split`/`merge` naturales para partir y unir conjuntos, implementación más simple que AVL o Red-Black, no depende del orden de inserción.
 
-**Ventajas:** mantiene el orden con operaciones efle frente a AVL/Red-Black, `split`/`merge`
-naturales, no depende del orden de inserción.
-
-**Desventajas:** sin garantía de peor caso, puede probables, más memoria que estructuras simples,depende de un buen generador de prioridades.
+**Desventajas:** sin garantía de peor caso, algo más de memoria que un BST simple por guardar la prioridad, depende de un generador de números aleatorios de buena calidad.
 
 ### Señales de reconocimiento
-
-- _"Necesito insertar y eliminar manteniendo todo
-- _"Los datos pueden llegar en cualquier orden, in
-- _"Necesito consultar rangos, o dividir/unir conj
+- "Necesito insertar y eliminar manteniendo todo ordenado."
+- "Los datos pueden llegar en cualquier orden, incluso ya ordenados."
+- "Necesito consultar rangos, o dividir y unir conjuntos completos."
 
 ## 5. Relaciones y extensiones
 
@@ -210,8 +205,5 @@ Al no tener rotaciones deterministas rígidas como el **AVL**, el patrón de acc
 Las operaciones de `split` y `merge` son especialmente amigables para el paralelismo, ya que dividen el problema en subárboles independientes. Existen versiones de Treaps concurrentes que aprovechan esta propiedad para permitir accesos simultáneos con baja contención, algo mucho más difícil de lograr en **AVL** o ***Red-Black Trees*** debido a sus reglas de rebalanceo rígidas.
 
 ## 6. Referencias y recursos
-- [[COR2011]] - Chapter X.Y Título del capítulo
 - [Treap (árbol cartesiano)](https://cp-algorithms.com/data_structures/treap.html)
-- [Título del recurso](https://ejemplo.com)
 - [Treaps](https://aprende.olimpiada-informatica.org/algoritmia-treaps)
-- Visualización interactiva: [nombre](https://ejemplo.com)
